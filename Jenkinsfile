@@ -60,7 +60,7 @@ pipeline {
                             sh 'terraform destroy -auto-approve -no-color'
                     } else if (params.ACTION == "plan-apply"){
                             sh 'terraform apply -refresh=true -auto-approve -no-color'  
-                            sh ' aws eks update-kubeconfig --name daddyzi-eks' 
+                            sh ' aws eks update-kubeconfig --name eks' 
                             sh ' kubectl get nodes' 
                             sh ' kubectl get deploy' 
                             sh ' kubectl get pods' 
