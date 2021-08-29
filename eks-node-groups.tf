@@ -87,6 +87,7 @@ resource "aws_eks_node_group" "nodes_general" {
   }
   tags = {
     Environment = "daddyzi-workernode"
+    Name        = "worker-Node-EC2"
   }
   # Type of Amazon Machine Image (AMI) associated with the EKS Node Group.
   # Valid values: AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64
