@@ -85,7 +85,9 @@ resource "aws_eks_node_group" "nodes_general" {
     # Minimum number of worker nodes.
     min_size = 1
   }
-
+  tags = {
+    Environment = "daddyzi-workernode"
+  }
   # Type of Amazon Machine Image (AMI) associated with the EKS Node Group.
   # Valid values: AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64
   ami_type = "AL2_x86_64"
