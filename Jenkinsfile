@@ -5,7 +5,7 @@ pipeline {
     } 
     environment {
         AWS_DEFAULT_REGION = 'ap-southeast-1'
-        THE_BUTLER_SAY_SO=credentials("AWS-CREDENTIAL")
+        //THE_BUTLER_SAY_SO=credentials("AWS-CREDENTIAL")
     }
     options {
         buildDiscarder logRotator(artifactDaysToKeepStr: '',artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')
