@@ -17,7 +17,7 @@ resource "aws_vpc" "main" {
   assign_generated_ipv6_cidr_block = false
   # A map of tags to assign to the resource.
   tags = {
-    Name = "daddyzi-eks-vpc"
+    Name = "golalit-eks-vpc"
   }
 }
 output "vpc_id" {

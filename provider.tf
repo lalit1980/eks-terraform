@@ -8,6 +8,7 @@ terraform {
 }
 provider "aws" {
   region  = "ap-southeast-1"
+  shared_credentials_file = "/Users/lalit/.aws/credentials"
   profile = "terraform"
 }
 terraform {
@@ -16,6 +17,8 @@ terraform {
     key            = "daddyzi/dev/terraform.tfstate"
     region         = "ap-southeast-1"
     dynamodb_table = "eks-terraform-state-daddyzi"
+    shared_credentials_file = "/Users/lalit/.aws/credentials"
+    profile = "terraform"
   }
 }
 
