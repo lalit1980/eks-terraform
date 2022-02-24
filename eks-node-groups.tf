@@ -80,13 +80,13 @@ resource "aws_eks_node_group" "nodes_general" {
     desired_size = 1
 
     # Maximum number of worker nodes.
-    max_size = 10
+    max_size = 1
 
     # Minimum number of worker nodes.
     min_size = 1
   }
   tags = {
-    Environment = "daddyzi-workernode"
+    Environment = "golalit-workernode"
     Name        = "worker-Node-EC2"
   }
   # Type of Amazon Machine Image (AMI) associated with the EKS Node Group.
@@ -111,7 +111,7 @@ resource "aws_eks_node_group" "nodes_general" {
   }
 
   # Kubernetes version
-  version = "1.18"
+  version = "1.20"
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
   # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
