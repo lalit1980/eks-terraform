@@ -40,17 +40,25 @@ pipeline {
     
         stage('Terraform Init') {
          steps {
-            sh 'terraform --version'
-            sh 'ls -la'
-            sh 'terraform init -no-color'
+             sh 'env'
+             script{
+                sh 'terraform --version'
+                sh 'ls -la'
+                sh 'terraform init -no-color'
+             }
+            
             } //steps
         }  //stage
 
         stage('Terraform Plan') {
-            steps {
-               sh 'ls -la'
-               sh 'terraform plan -refresh=true -lock=true -no-color'
-            }  
+            sh 'env'
+            script{
+                steps {
+                    sh 'ls -la'
+                    sh 'terraform plan -refresh=true -lock=true -no-color'
+                }  
+            }
+            
         }  //stage
         
         
