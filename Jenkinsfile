@@ -14,6 +14,16 @@ pipeline {
       choice(name: 'ACTION', choices: ['', 'blue', 'blue-90','split','green-90','green','destroy'], description: 'Select create or delete EKS cluster')
     }
     stages{
+        stage('Set Terraform path') {
+            steps {
+            script {
+                def tfHome = tool name: 'terraform12'
+                env.PATH = "${tfHome}:${env.PATH}"
+            }
+            sh 'terraform version'
+
+            }
+        }
         stage('Clean Workspace') { 
                 steps {
                     cleanWs()
@@ -56,21 +66,13 @@ pipeline {
         stage('Terraform Apply or Destroy') {
             steps {
                 script{  
+                    def yes='true'
+                    def no= 'false'
+                    def ACTION=params.ACTION
                     if(params.ACTION == "blue"){
-                        sh '''terraform apply -var traffic_distribution='blue' -var enable_blue_env='true' -var enable_green_env='false' -auto-approve -no-color'''
-                    }else if(params.ACTION == "green"){
-                        sh '''terraform apply -var traffic_distribution='green' -var enable_blue_env='false' -var enable_green_env='true' -auto-approve -no-color '''
-                    }else if(params.ACTION == "blue-90"){
-                        sh ''' terraform apply -var traffic_distribution='blue-90' -var enable_blue_env='false' -var enable_green_env='true' -auto-approve -no-color '''
-                    }else if(params.ACTION == "split"){
-                        sh '''  terraform apply -var traffic_distribution='split' -var enable_blue_env='false' -var enable_green_env='true' -auto-approve -no-color '''
-                    }else if(params.ACTION == "split"){
-                        sh ''' terraform apply -var traffic_distribution='green-90' -var enable_blue_env='false' -var enable_green_env='true' -auto-approve -no-color '''
-                    }else if(params.ACTION == "destroy"){
-                        sh 'terraform destroy -auto-approve -no-color'
-                    }else{
-                        echo "Error: Nothing selected"
+                        sh 'terraform apply -var /'traffic_distribution/' = $ACTION -var /'enable_blue_env/'='true' -var /'enable_green_env/'='false' -auto-approve -no-color'''
                     }
+                    
                 }//script
             } //steps
         }  //stage
