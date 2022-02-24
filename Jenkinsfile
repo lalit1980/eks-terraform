@@ -19,19 +19,10 @@ pipeline {
                 
                 
                 script{  
-                    if(params.ACTION == "blue"){
-                        def ACTION=params.ACTION
-                        echo "Action....$ACTION" 
-                        sh 'chmod +x apply.sh'
-                        sh './apply.sh'
-                        //sh 'terraform apply -var \'traffic_distribution=${params.ACTION}\'  -var \'enable_blue_env=true\' -var \'enable_green_env=false\' -auto-approve -no-color'
-                    }else if (params.ACTION == "destroy"){
-                        sh ' echo  "Destroy: " '
-                           // sh 'terraform destroy -auto-approve -no-color'
-                    }else{
-                        sh ' echo  "No Action Selected: " '
-                        return
-                    }
+                    echo "Action....$ACTION" 
+                    sh 'chmod +x apply.sh'
+                    sh './apply.sh'
+                    
                 }
             } //steps
         }  //stage
