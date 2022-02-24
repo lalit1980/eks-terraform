@@ -70,7 +70,7 @@ pipeline {
                     echo "Hello inside Terraform Apply.........."
                     if(params.ACTION == "blue"){
                         sh 'terraform apply -help'
-                        sh 'terraform apply -var traffic_distribution = blue -var enable_blue_env=true -var enable_green_env=false -auto-approve -no-color'
+                        sh 'terraform apply -var traffic_distribution = blue -var enable_blue_env=true -auto-approve -no-color'
                     }
                     
                 }//script
