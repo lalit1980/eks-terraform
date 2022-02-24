@@ -56,6 +56,7 @@ pipeline {
                 sh 'terraform init -no-color'
                 sh 'ls -la'
                 sh 'terraform plan -refresh=true -lock=true -no-color'
+                 sh 'terraform plan -refresh=true -lock=true -var 'traffic_distribution' = $ACTION -var 'enable_blue_env'='true' -var 'enable_green_env'= 'false' '
              }
             
             } //steps
@@ -65,10 +66,9 @@ pipeline {
     
         stage('Terraform Apply or Destroy') {
             steps {
-                script{  
-                    def yes='true'
-                    def no= 'false'
+                script{
                     def ACTION=params.ACTION
+                    echo "Hello inside Terraform Apply.........."
                     if(params.ACTION == "blue"){
                         sh 'terraform apply -var 'traffic_distribution' = $ACTION -var 'enable_blue_env'='true' -var 'enable_green_env'='false' -auto-approve -no-color'
                     }
