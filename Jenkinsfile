@@ -16,13 +16,13 @@ pipeline {
     stages{
         stage('Set Terraform path') {
             steps {
-            script {
-                def tfHome = tool name: 'terraform12'
-                env.PATH = "${tfHome}:${env.PATH}"
-            }
-            sh 'terraform version'
+                script {
+                    def tfHome = tool name: 'terraform12'
+                    env.PATH = "${tfHome}:${env.PATH}"
+                }
+                sh 'terraform version'
 
-            }
+                }
         }
         stage('Clean Workspace') { 
                 steps {
@@ -70,7 +70,7 @@ pipeline {
                     def no= 'false'
                     def ACTION=params.ACTION
                     if(params.ACTION == "blue"){
-                        sh 'terraform apply -var /'traffic_distribution/' = $ACTION -var /'enable_blue_env/'='true' -var /'enable_green_env/'='false' -auto-approve -no-color'''
+                        sh 'terraform apply -var /'traffic_distribution/' = $ACTION -var /'enable_blue_env/'='true' -var /'enable_green_env/'='false' -auto-approve -no-color'
                     }
                     
                 }//script
