@@ -56,38 +56,22 @@ pipeline {
         stage('Terraform Apply or Destroy') {
             steps {
                 script{  
-                def ACTION= params.ACTION
-                echo "Action selected.... $ACTION"
-                sh '''
-                    if [ ${ACTION} == "blue" ]
-                        then
-                        terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=true -var "enable_green_env"=false -auto-approve -no-color
-                            
-                    elif [ ${ACTION} == "green" ]
-                        then
-                        terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
-                            
-                    elif [ ${ACTION} == "blue-90" ]
-                        then
-                        terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
-                            
-                    elif [ ${ACTION} == "split" ]
-                        then
-                        terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
-
-                    elif [ ${ACTION} == "green-90" ]
-                        then
-                        terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
-                            
-                    elif [ ${ACTION} == "destroy" ]
-                        then
-                        terraform destroy -auto-approve -no-color
-                            
-                    else
-                        echo 'Error: Nothing selected'
-                    fi
-                '''    
-                }
+                    if(params.ACTION == "blue"){
+                        sh '''terraform apply -var traffic_distribution='blue' -var enable_blue_env='true' -var enable_green_env='false' -auto-approve -no-color'''
+                    }else if(params.ACTION == "green"){
+                        sh '''terraform apply -var traffic_distribution='green' -var enable_blue_env='false' -var enable_green_env='true' -auto-approve -no-color '''
+                    }else if(params.ACTION == "blue-90"){
+                        sh ''' terraform apply -var traffic_distribution='blue-90' -var enable_blue_env='false' -var enable_green_env='true' -auto-approve -no-color '''
+                    }else if(params.ACTION == "split"){
+                        sh '''  terraform apply -var traffic_distribution='split' -var enable_blue_env='false' -var enable_green_env='true' -auto-approve -no-color '''
+                    }else if(params.ACTION == "split"){
+                        sh ''' terraform apply -var traffic_distribution='green-90' -var enable_blue_env='false' -var enable_green_env='true' -auto-approve -no-color '''
+                    }else if(params.ACTION == "destroy"){
+                        sh 'terraform destroy -auto-approve -no-color'
+                    }else{
+                        echo "Error: Nothing selected"
+                    }
+                }//script
             } //steps
         }  //stage
    }  // stages
