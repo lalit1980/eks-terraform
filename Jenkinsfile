@@ -72,6 +72,7 @@ pipeline {
                                 sh 'terraform apply -var traffic_distribution=green-90 -var enable_green_env=true -auto-approve -no-color'
                             }else{
                                 sh ' echo  "No traffic distribution Selected: " '
+                                return
                             }
                             sh ' aws eks update-kubeconfig --name eks' 
                              sh ' kubectl get all'
