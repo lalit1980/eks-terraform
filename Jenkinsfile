@@ -13,22 +13,22 @@ pipeline {
     parameters { 
       choice(name: 'ACTION', choices: ['', 'blue', 'blue-90','split','green-90','green','destroy'], description: 'Select create or delete EKS cluster')
     }
-
-    stage('Clean Workspace') { 
-            steps {
-                cleanWs()
-                sh 'env'
-                script{
-                    if (params.ACTION == ""){
-                        currentBuild.result = 'ABORTED'
-                        error('Aborting the build as no action selected. Removed')
-                        return
+    stages{
+        stage('Clean Workspace') { 
+                steps {
+                    cleanWs()
+                    sh 'env'
+                    script{
+                        if (params.ACTION == ""){
+                            currentBuild.result = 'ABORTED'
+                            error('Aborting the build as no action selected. Removed')
+                            return
+                        }
                     }
-                }
-            } //steps
-        }  //stage
+                } //steps
+            }  //stage
 
-        //${params.Acción}
+        
         stage("SCM Checkout"){
             steps {
                 git branch: 'main', credentialsId: 'GITHUB-JENKINS', url: 'https://github.com/lalit1980/eks-terraform.git'
@@ -52,7 +52,7 @@ pipeline {
         }  //stage
 
 
-    stages{
+    
         stage('Terraform Apply or Destroy') {
             steps {
                 script{  
