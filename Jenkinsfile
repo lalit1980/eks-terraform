@@ -56,7 +56,6 @@ pipeline {
                 sh 'terraform init -no-color'
                 sh 'ls -la'
                 sh 'terraform plan -refresh=true -lock=true -no-color'
-                 sh 'terraform plan -refresh=true -lock=true -var 'traffic_distribution' = $ACTION -var 'enable_blue_env'='true' -var 'enable_green_env'= 'false' '
              }
             
             } //steps
