@@ -6,50 +6,30 @@ set -eux
 
 if [ ${ACTION} == "blue" ]
     then
-        if terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=true -var "enable_green_env"=false -auto-approve -no-color; then
-            echo "Terraform apply succeeded."
-        else
-            echo 'Error: terraform apply failed.' >&2
-            exit 1
+    terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=true -var "enable_green_env"=false -auto-approve -no-color
+        
 elif [ ${ACTION} == "green" ]
     then
-        if terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color; then
-            echo "Terraform apply succeeded."
-        else
-            echo 'Error: terraform apply failed.' >&2
-            exit 1
+    terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
+        
 elif [ ${ACTION} == "blue-90" ]
     then
-        if terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color; then
-            echo "Terraform apply succeeded."
-        else
-            echo 'Error: terraform apply failed.' >&2
-            exit 1
+    terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
+        
 elif [ ${ACTION} == "split" ]
     then
-        if terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color; then
-            echo "Terraform apply succeeded."
-        else
-            echo 'Error: terraform apply failed.' >&2
-            exit 1
+    terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
+
 elif [ ${ACTION} == "green-90" ]
     then
-        if terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color; then
-            echo "Terraform apply succeeded."
-        else
-            echo 'Error: terraform apply failed.' >&2
-            exit 1
+    terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
+        
 elif [ ${ACTION} == "destroy" ]
     then
-        if terraform destroy -auto-approve -no-color; then
-            echo "Terraform destroy succeeded."
-        else
-            echo 'Error: terraform destroy failed.' >&2
-            exit 1
+    terraform destroy -auto-approve -no-color
+        
 else
-    echo 'Error: Nothing selected' >&2
-            exit 1
-
+    echo 'Error: Nothing selected'
 fi
 
 
