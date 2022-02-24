@@ -38,29 +38,20 @@ pipeline {
             } //steps
         }  //stage
     
-        stage('Terraform Init') {
+        stage('Terraform Init & Plan') {
          steps {
-             sh 'env'
+            
              script{
                 sh 'terraform --version'
                 sh 'ls -la'
                 sh 'terraform init -no-color'
+                sh 'ls -la'
+                sh 'terraform plan -refresh=true -lock=true -no-color'
              }
             
             } //steps
         }  //stage
 
-        stage('Terraform Plan') {
-            sh 'env'
-            script{
-                steps {
-                    sh 'ls -la'
-                    sh 'terraform plan -refresh=true -lock=true -no-color'
-                }  
-            }
-            
-        }  //stage
-        
         
         stage('Terraform Apply or Destroy') {
             steps {
