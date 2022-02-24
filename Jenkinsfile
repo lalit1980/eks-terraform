@@ -11,7 +11,7 @@ pipeline {
         buildDiscarder logRotator(artifactDaysToKeepStr: '',artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')
     }
     parameters { 
-      choice(name: 'ACTION', choices: ['', 'traffic-distribution-apply-blue', 'traffic-distribution-apply-blue-90','traffic-distribution-apply-split','traffic-distribution-apply-green-90','traffic-distribution-apply-green','destroy'], description: 'Select create or delete EKS cluster')
+      choice(name: 'ACTION', choices: ['', 'blue', 'blue-90','split','green-90','green','destroy'], description: 'Select create or delete EKS cluster')
     }
     stages{
         stage('Clean Workspace') { 
@@ -55,16 +55,8 @@ pipeline {
         stage('Terraform Apply or Destroy') {
             steps {
                 script{  
-                    if(params.ACTION == "traffic-distribution-apply-blue"){
-                        sh 'terraform apply -var traffic_distribution=blue  -var enable_blue_env=true -var enable_green_env=false -auto-approve -no-color'
-                    }else if(params.ACTION == "traffic-distribution-apply-green"){
-                        sh 'terraform apply -var traffic_distribution=green  -var enable_blue_env=false -var enable_green_env=true -auto-approve -no-color'
-                    }else if(params.ACTION == "traffic-distribution-apply-blue-90"){
-                        sh 'terraform apply -var traffic_distribution=blue-90 -var enable_green_env=true -auto-approve -no-color'
-                    }else if(params.ACTION == "traffic-distribution-apply-split"){
-                        sh 'terraform apply -var traffic_distribution=split -var enable_green_env=true -auto-approve -no-color'
-                    }else if(params.ACTION == "traffic-distribution-apply-green-90"){
-                        sh 'terraform apply -var traffic_distribution=green-90 -var enable_green_env=true -auto-approve -no-color'
+                    if(params.ACTION == "blue"){
+                        sh "terraform apply -var \"traffic_distribution=${params.ACTION}\"  -var \"enable_blue_env=true\" -var \"enable_green_env=false\" -auto-approve -no-color"
                     }else if (params.ACTION == "destroy"){
                             sh 'terraform destroy -auto-approve -no-color'
                     }else{
