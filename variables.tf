@@ -33,4 +33,5 @@ variable "green_instance_count" {
 variable "traffic_distribution" {
   description = "Levels of traffic distribution"
   type        = string
+  default     = "blue"
 }
