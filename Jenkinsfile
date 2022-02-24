@@ -56,37 +56,37 @@ pipeline {
         stage('Terraform Apply or Destroy') {
             steps {
                 script{  
-                    if(params.ACTION == "green"){
-                        def Action=params.ACTION
-                        echo "Action....$ACTION" 
-                        sh '''
-                            terraform apply -var 'traffic_distribution=$ACTION' -var 'enable_blue_env'=false -var 'enable_green_env'=true -auto-approve -no-color
-                        '''
-                    }else if(params.ACTION == "blue"){
-                        def Action=params.ACTION
-                        echo "Action....$ACTION" 
-                        sh '''
-                            terraform apply -var 'traffic_distribution=$ACTION' -var 'enable_blue_env'=true -var 'enable_green_env'=false -auto-approve -no-color
-                        '''
-                    }else if(params.ACTION == "blue-90"){
-                        def Action=params.ACTION
-                        echo "Action....$ACTION" 
-                        sh '''
-                            terraform apply -var 'traffic_distribution=$ACTION' -var 'enable_blue_env'=false -var 'enable_green_env'=true -auto-approve -no-color
-                        '''
-                    }else if(params.ACTION == "split"){
-                        def Action=params.ACTION
-                        echo "Action....$ACTION" 
-                        sh '''
-                            terraform apply -var 'traffic_distribution=$ACTION' -var 'enable_blue_env'=false -var 'enable_green_env'=true -auto-approve -no-color
-                        '''
-                    }else if(params.ACTION == "green-90"){
-                        def Action=params.ACTION
-                        echo "Action....$ACTION" 
-                        sh '''
-                            terraform apply -var 'traffic_distribution=$ACTION' -var 'enable_blue_env'=false -var 'enable_green_env'=true -auto-approve -no-color
-                        '''
-                    }
+                def ACTION= params.ACTION
+                echo "Action selected.... $ACTION"
+                sh '''
+                    if [ ${ACTION} == "blue" ]
+                        then
+                        terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=true -var "enable_green_env"=false -auto-approve -no-color
+                            
+                    elif [ ${ACTION} == "green" ]
+                        then
+                        terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
+                            
+                    elif [ ${ACTION} == "blue-90" ]
+                        then
+                        terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
+                            
+                    elif [ ${ACTION} == "split" ]
+                        then
+                        terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
+
+                    elif [ ${ACTION} == "green-90" ]
+                        then
+                        terraform apply -var "traffic_distribution=${ACTION}" -var "enable_blue_env"=false -var "enable_green_env"=true -auto-approve -no-color
+                            
+                    elif [ ${ACTION} == "destroy" ]
+                        then
+                        terraform destroy -auto-approve -no-color
+                            
+                    else
+                        echo 'Error: Nothing selected'
+                    fi
+                '''    
                 }
             } //steps
         }  //stage
