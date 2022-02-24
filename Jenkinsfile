@@ -21,7 +21,7 @@ pipeline {
                 script{
                     if (params.ACTION == ""){
                         currentBuild.result = 'ABORTED'
-                        error('Aborting the build as no action selected.')
+                        error('Aborting the build as no action selected. Removed')
                         return
                     }
                 }
