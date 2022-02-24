@@ -1,7 +1,4 @@
-#!/bin/bash
-# vim: set ft=sh
-
-set -eux
+#!/usr/bin/env bash
 
 
 if [ ${ACTION} == "blue" ]
