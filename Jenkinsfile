@@ -31,7 +31,7 @@ pipeline {
         //${params.Acción}
         stage("SCM Checkout"){
             steps {
-                git branch: env.BRANCH_NAME, credentialsId: 'GITHUB-JENKINS', url: 'https://github.com/lalit1980/eks-terraform.git'
+                git branch: 'main', credentialsId: 'GITHUB-JENKINS', url: 'https://github.com/lalit1980/eks-terraform.git'
                 sh 'pwd' 
                 sh 'ls -l'
             } //steps
