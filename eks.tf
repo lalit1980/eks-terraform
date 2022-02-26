@@ -1,12 +1,5 @@
 # Resource: aws_iam_role
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role
-provider "kind" {
-}
-
-provider "kubernetes" {
-  config_path = pathexpand(var.kind_cluster_config_path)
-}
-
 resource "aws_iam_role" "eks_cluster" {
   # The name of the role
   name = "eks-cluster"
@@ -51,8 +44,6 @@ resource "aws_eks_cluster" "eks" {
   # The Amazon Resource Name (ARN) of the IAM role that provides permissions for 
   # the Kubernetes control plane to make calls to AWS API operations on your behalf
   role_arn = aws_iam_role.eks_cluster.arn
-  kubeconfig_path = pathexpand(var.kind_cluster_config_path)
-  wait_for_ready  = true
 
   # Desired Kubernetes master version
   version = "1.20"
