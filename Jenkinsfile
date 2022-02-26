@@ -69,8 +69,21 @@ pipeline {
                     def ACTION=params.ACTION
                     echo "Hello inside Terraform Apply.........."
                     if(params.ACTION == "blue"){
-                        sh 'terraform apply -help'
                         sh 'terraform apply -var traffic_distribution=blue  -var enable_green_env=false -var enable_blue_env=true -auto-approve -no-color'
+                    }else if(params.ACTION == "blue-90"){
+                        sh 'terraform apply -var traffic_distribution=blue-90  -var enable_green_env=true -var -auto-approve -no-color'
+                    }else if(params.ACTION == "split"){
+                        sh 'terraform apply -var traffic_distribution=split  -var enable_green_env=true -var -auto-approve -no-color'
+                    }else if(params.ACTION == "green-90"){
+                        sh 'terraform apply -var traffic_distribution=green-90  -var enable_green_env=true -var -auto-approve -no-color'
+                    }else if(params.ACTION == "green"){
+                        sh 'terraform apply -var traffic_distribution=green -var enable_green_env=true -var enable_blue_env=false -var -auto-approve -no-color'
+                    }else if(params.ACTION == "green"){
+                        sh 'terraform apply -var traffic_distribution=green -var enable_green_env=true -var enable_blue_env=false -var -auto-approve -no-color'
+                    }else if(params.ACTION == "destroy"){
+                        sh 'terraform destroy -auto-approve -no-color'
+                    }else{
+                        echo "No traffic distribution provided...."
                     }
                     
                 }//script
