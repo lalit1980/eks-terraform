@@ -38,7 +38,17 @@ pipeline {
                 } //steps
             }  //stage
 
-        
+        stage("Setup NGINX Ingress Controller"){
+              steps {
+                   script{
+                        sh ("helm repo add eks https://aws.github.io/eks-charts")
+                        sh ("kubectl apply -k /"/github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master/"/")
+                        sh ("helm install nginx-release nginx-stable/nginx-ingress")
+                   }
+
+              }
+           
+        }
         stage("SCM Checkout"){
             steps {
                 git branch: 'main', credentialsId: 'GITHUB-JENKINS', url: 'https://github.com/lalit1980/eks-terraform.git'
