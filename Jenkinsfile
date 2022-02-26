@@ -70,7 +70,7 @@ pipeline {
                     echo "Hello inside Terraform Apply.........."
                     if(params.ACTION == "apply"){
                         sh 'terraform apply  -auto-approve -no-color'
-                        sh 'aws eks update-kubeconfig --name eks --region ap-southeast-1'
+                        sh 'aws eks update-kubeconfig --name eks    --region ap-southeast-1'
                     }else if(params.ACTION == "destroy"){
                         sh 'terraform destroy -auto-approve -no-color'
                     }else{
