@@ -1,0 +1,12 @@
+ami_id                  = "ami-04d9e855d716f9c99"
+hosted_zone_domain_name = "golalit.com"
+ssh_key_name            = "lalit-vault"
+vault_domain_name       = "vault.golalit.com"
+consul_cluster_name     = "golalit-consul-cluster"
+consul_cluster_size     = 3
+consul_cluster_tag_key  = "golalit-consul-cluster-key"
+consul_instance_type    = "t2.medium"
+create_dns_entry        = true
+subnet_tags             = {}
+use_default_vpc         = true
+vpc_tags                = {}
