@@ -7,12 +7,12 @@ terraform {
 
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.5.0"
+      version = "2.25.2"
     }
 
     helm = {
       source  = "hashicorp/helm"
-      version = "2.3.0"
+      version = "2.12.1"
     }
 
     null = {
@@ -22,16 +22,16 @@ terraform {
   }
 }
 provider "aws" {
-  region                  = "ap-southeast-1"
+  region                  = "ap-south-1"
   shared_credentials_file = "/Users/lalit/.aws/credentials"
   profile                 = "terraform"
 }
 terraform {
   backend "s3" {
-    bucket                  = "eks-terraform-state-daddyzi"
-    key                     = "daddyzi/dev/terraform.tfstate"
-    region                  = "ap-southeast-1"
-    dynamodb_table          = "eks-terraform-state-daddyzi"
+    bucket                  = "eks-terraform-state-zatamap"
+    key                     = "zatamap/dev/terraform.tfstate"
+    region                  = "ap-south-1"
+    dynamodb_table          = "eks-terraform-state-zatamap"
     shared_credentials_file = "/Users/lalit/.aws/credentials"
     profile                 = "terraform"
   }

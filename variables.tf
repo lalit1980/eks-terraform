@@ -4,7 +4,7 @@ variable "region" {
 }
 
 variable "cluster_name" {
-  default = "golalit-eks"
+  default = "zatamap-eks"
 }
 variable "ami_id" {
 }

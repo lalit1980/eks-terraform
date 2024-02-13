@@ -4,7 +4,7 @@ pipeline {
         terraform 'terraform12'
     } 
     environment {
-        AWS_DEFAULT_REGION = 'ap-southeast-1'
+        AWS_DEFAULT_REGION = 'ap-south-1'
         THE_BUTLER_SAY_SO=credentials("AWS-CREDENTIAL")
     }
     options {
@@ -70,7 +70,7 @@ pipeline {
                     echo "Hello inside Terraform Apply.........."
                     if(params.ACTION == "apply"){
                         sh 'terraform apply  -auto-approve -no-color'
-                        sh 'aws eks update-kubeconfig --name eks    --region ap-southeast-1'
+                        sh 'aws eks update-kubeconfig --name eks    --region ap-south-1'
                     }else if(params.ACTION == "destroy"){
                         sh 'terraform destroy -auto-approve -no-color'
                     }else{
