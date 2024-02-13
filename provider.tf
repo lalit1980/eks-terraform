@@ -28,12 +28,11 @@ provider "aws" {
 }
 terraform {
   backend "s3" {
-    bucket                  = "eks-terraform-state-zatamap"
-    key                     = "zatamap/dev/terraform.tfstate"
-    region                  = "ap-south-1"
-    dynamodb_table          = "eks-terraform-state-zatamap"
-    shared_credentials_file = "/Users/lalit/.aws/credentials"
-    profile                 = "terraform"
+    bucket         = "eks-terraform-zatamap"
+    key            = "terraform.tfstate"
+    region         = "ap-south-1"
+    dynamodb_table = "eks-terraform-zatamap"
+    encrypt        = true
   }
 }
 
